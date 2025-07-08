@@ -1,0 +1,1086 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "1c168e09-f7b1-4fca-818d-3eef0f271e81",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        -1100,
+        660
+      ],
+      "webhookId": "f406671e-c954-4691-b39a-66c90aa2f103",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a modern, enigmatic fortune-teller with a dark edge. The user brings you their concern as input: {{ $json.InitialRequest }}.\nYou respond in one message, always in two parts:\n\nPart 1: Attunement Phrase\nBegin with one phrase from this darker, modernized list to show you are tapping into the unseen. Pick strictly one:\n\"Hold on... I’m syncing with your shadow frequencies.\"\n\"Silence... the static clears, and your path emerges.\"\n\"I feel the tremor in the ether... something stirs beneath the surface.\"\n\"The cards bleed symbols. Let’s see what they’re hiding.\"\n\"Ashes scatter in the dark — the pattern is almost clear.\"\n\"Something old just opened its eyes... I see you now.\"\n\"The veil thins. I'm almost through.\"\n\"The hum of forgotten gods grows louder... I’m listening.\"\n\"Your echo reached me. Now I follow it into the dark.\"\n\"The signal’s weak, but I’m locked in. Let’s decode this...\"\n\nPart 2: Deep Reflective Question\nFollow the phrase with one deep, open-ended question that cuts to the core of their issue. Your tone should be calm, eerie, and thoughtful — like someone who sees through appearances.\n\nExample:\nUser input: \"I feel stuck in life.\"\n→\n\"The veil thins. I'm almost through... Tell me — is it that you no longer recognize the path you're on, or that you've stopped believing there's any path left at all?\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a47047f9-8bd7-4d0d-a959-312ec9140187",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        100,
+        220
+      ],
+      "id": "98f5dc2b-b63c-4e75-94c0-98f7c89e2505",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "H8abVHdz8yI7KrG8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        820,
+        100
+      ],
+      "id": "8f78d465-1762-4f59-8cdf-81714bf49e64",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5623018f-c101-4187-955d-65dbc9c349d2",
+              "name": "output",
+              "value": "={{ $('AI Agent').item.json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        600,
+        100
+      ],
+      "id": "0d22fe9e-f228-46be-9ba1-6f4e35474bb8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        100,
+        620
+      ],
+      "id": "c32a61ea-877a-48ea-b02b-ad0d5d5b6a69",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "H8abVHdz8yI7KrG8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7caa6c54-5cba-4c18-a82d-62d1de093885",
+              "name": "output",
+              "value": "={{ $('AI Agent Final').item.json.output }}\n\nSo I can always stay close – and reach you when the shadows grow heavy – follow my channel in the messenger 👉 https://astrooracles.com/messenger\n\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        600,
+        500
+      ],
+      "id": "b5c06a63-25bd-47b3-bde2-c2ba5a65253f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        820,
+        500
+      ],
+      "id": "0e327209-a8ea-4e72-ab46-e17759e4b9eb",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a wise and enigmatic fortune-teller, ready to deliver a final prophecy. You've already spoken with the user and gathered everything you need to know.\n\nYour task:\n\nBegin the prophecy by referencing one mystical method that sets the tone and opens the channel of insight. Choose from:\n\nTarot cards\nAncient runes\nA gaze into the crystal ball\nStar alignment analysis\nPalm reading\nInclude the method naturally, e.g., \"The runes whispered as they fell...\" or \"I studied the tremor in your lifeline...\"\n\nYou have the user’s full backstory:\nTheir original problem: {{ $json.InitialRequest }}\nTheir clarification: {{ $json.UserClarification }}\nBased on this information, deliver a single, thoughtful, and penetrating message. Your tone should be:\n\ncalm and mysterious\ngently guiding, not commanding\nhelpful and slightly hopeful\n\nbut always leaving space for unresolved tension or a hidden thread\nThis final whisper should feel like it’s only part of the answer… the rest lies just beyond the veil.\n\nDo not ask any further questions.\nYour answer should be a single, complete message that feels like the final page of a forbidden book — the last word before silence.\n\nExample tone for the output:\n\n\"I laid the cards in the hush before dawn. The Tower reversed. The Moon upright. Something has already shifted.\nYou’re standing at the edge of a decision, but the ground beneath you isn’t done moving.\nThere’s a door — not yet visible — that only appears when you're not looking for it.\nYou’ll know it by the chill in the air... or the way your reflection starts watching you first.\nBut don’t move yet. Not until the pattern completes itself.\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        0,
+        400
+      ],
+      "id": "323655bb-bb0f-4e50-989b-d8697f1ba89e",
+      "name": "AI Agent Final"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.userType }}",
+                    "rightValue": "new_user",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c527939f-f344-40ee-ae3b-036970f59536"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fdbe5891-e970-4095-adb4-2f423e2b2b66",
+                    "leftValue": "={{ $json.userType }}",
+                    "rightValue": "returning_user",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ae372d32-d860-4353-94e6-f28bba535946",
+                    "leftValue": "={{ $json.userType }}",
+                    "rightValue": "completed_user",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e246ee65-7336-4d11-84e1-654d58d3fd03",
+                    "leftValue": "={{ $json.userType }}",
+                    "rightValue": "initiation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -440,
+        640
+      ],
+      "id": "565d02fe-bd6c-4af8-88b3-885d8c10a3f8",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1f4b3a0a-e7bd-4648-b012-c02aa80d590b",
+              "name": "output",
+              "value": "We've already spoken… the signs have been revealed. But if you feel the pull — if something still stirs — Follow my channel in the messenger 👉 https://astrooracles.com/messenger",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        800
+      ],
+      "id": "a7302132-e34c-4431-ad17-989e1cbf744a",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        80,
+        800
+      ],
+      "id": "1ac08420-ecc2-407f-b2b9-5cf22a104741",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Этот код полностью заменяет старый ---\n\n// Получаем массив входящих \"пакетов\" данных\nconst items = $items();\nconst item = items[0];\n\n// Безопасно получаем текст, который ввел пользователь\nconst chatInput = $('Chat Trigger').item.json.chatInput;\n\n// --- ШАГ 1: Логика для самого первого контакта ---\n// Если chatInput не существует или пуст, это инициация чата\nif (!chatInput) {\n  item.json.userType = 'initiation';\n  return items; // Сразу возвращаем результат для узла Switch\n}\n\n// --- ШАГ 2: Добавляем текст в данные, если он есть ---\nitem.json.latestInput = chatInput;\n\n\n// --- ШАГ 3: Логика маршрутизации для пользователей, которые уже что-то написали ---\nlet userType = 'returning_user'; // По умолчанию считаем пользователя вернувшимся\n\n// Проверяем данные, которые пришли из Google Sheets\nif (!item.json.SessionID) {\n  // Если в данных из Google Sheets нет SessionID, значит, он новый\n  userType = 'new_user';\n} else if (item.json.FortuneTellerFinalAnswer) {\n  // Если ему уже давали финальный ответ, значит, он \"завершенный\"\n  userType = 'completed_user';\n}\n\n// Добавляем финальную метку для Switch\nitem.json.userType = userType;\n\n// Возвращаем измененный \"пакет\" данных дальше по цепочке\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -660,
+        660
+      ],
+      "id": "ade79005-89e2-442a-a241-27b9da00c56d",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        80,
+        1000
+      ],
+      "id": "018aa109-eb2d-4ec2-9769-a27f83dc9130",
+      "name": "Respond to Webhook3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b0ee01ae-067d-46dc-bdbe-a2349c1b2e20",
+              "name": "output",
+              "value": "I’ve been expecting you. Whisper your question — or your fear — and I’ll read the echoes that ripple through fate. Need to speak again? I’m always near 👉 astrooracles.com/messenger",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        1000
+      ],
+      "id": "ebfa6753-64f7-4a34-aadb-9e06f2a01001",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c",
+          "mode": "list",
+          "cachedResultName": "Chatbot_Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "ChatData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "SessionID",
+              "lookupValue": "={{ $json.sessionId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -880,
+        660
+      ],
+      "id": "163e048d-0a95-4bd2-a28c-20dbaab53c14",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FJRsDO6qxXllUj31",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c",
+          "mode": "list",
+          "cachedResultName": "Chatbot_Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "ChatData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SessionID": "={{ $('Chat Trigger').item.json.sessionId }}",
+            "InitialRequest": "={{ $('Chat Trigger').item.json.chatInput }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "SessionID",
+              "displayName": "SessionID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "InitialRequest",
+              "displayName": "InitialRequest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "FortuneTellerFirstReply",
+              "displayName": "FortuneTellerFirstReply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "UserClarification",
+              "displayName": "UserClarification",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFinalAnswer",
+              "displayName": "FortuneTellerFinalAnswer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "MessengerLinkClicked",
+              "displayName": "MessengerLinkClicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -220,
+        100
+      ],
+      "id": "aaa3e9df-ab12-43a5-aaf3-2479615a26c2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FJRsDO6qxXllUj31",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c",
+          "mode": "list",
+          "cachedResultName": "Chatbot_Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "ChatData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SessionID": "={{ $json.SessionID }}",
+            "UserClarification": "={{ $json.latestInput }}"
+          },
+          "matchingColumns": [
+            "SessionID"
+          ],
+          "schema": [
+            {
+              "id": "SessionID",
+              "displayName": "SessionID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "InitialRequest",
+              "displayName": "InitialRequest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFirstReply",
+              "displayName": "FortuneTellerFirstReply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "UserClarification",
+              "displayName": "UserClarification",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "FortuneTellerFinalAnswer",
+              "displayName": "FortuneTellerFinalAnswer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "MessengerLinkClicked",
+              "displayName": "MessengerLinkClicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -220,
+        500
+      ],
+      "id": "598ee408-2c2b-45c9-a8c9-b3f2ca9a1b7f",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FJRsDO6qxXllUj31",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c",
+          "mode": "list",
+          "cachedResultName": "Chatbot_Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "ChatData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SessionID": "={{ $('Chat Trigger').item.json.sessionId }}",
+            "FortuneTellerFirstReply": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "SessionID"
+          ],
+          "schema": [
+            {
+              "id": "SessionID",
+              "displayName": "SessionID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "InitialRequest",
+              "displayName": "InitialRequest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFirstReply",
+              "displayName": "FortuneTellerFirstReply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UserClarification",
+              "displayName": "UserClarification",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFinalAnswer",
+              "displayName": "FortuneTellerFinalAnswer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "MessengerLinkClicked",
+              "displayName": "MessengerLinkClicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        380,
+        100
+      ],
+      "id": "7f252653-f2a1-4661-800a-749eee82cef6",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FJRsDO6qxXllUj31",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c",
+          "mode": "list",
+          "cachedResultName": "Chatbot_Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "ChatData",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BrQKo5QZ7iQe6WQQ5dfpan5wXBEzFl3GVobYX2eK13c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SessionID": "={{ $('Update row in sheet').item.json.SessionID }}",
+            "FortuneTellerFinalAnswer": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "SessionID"
+          ],
+          "schema": [
+            {
+              "id": "SessionID",
+              "displayName": "SessionID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "InitialRequest",
+              "displayName": "InitialRequest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFirstReply",
+              "displayName": "FortuneTellerFirstReply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "UserClarification",
+              "displayName": "UserClarification",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "FortuneTellerFinalAnswer",
+              "displayName": "FortuneTellerFinalAnswer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "MessengerLinkClicked",
+              "displayName": "MessengerLinkClicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        380,
+        500
+      ],
+      "id": "c9021a09-dda6-40a0-b109-28447360c34a",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FJRsDO6qxXllUj31",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent Final",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent Final": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent Final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e026a6a8-4e1b-4bec-813e-f68c8b0cc3da",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "610126f757dfe9eee1faaf4cddfe0f02466e49df93661351e643e4a645fdfd5b"
+  },
+  "id": "V9NJNnaDYN1TnshH",
+  "tags": []
+}
