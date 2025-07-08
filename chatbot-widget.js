@@ -389,21 +389,41 @@
             }
         }];
 
-        try {
-            const response = await fetch(config.webhook.url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+//        try {
+//            const response = await fetch(config.webhook.url, {
+//                method: 'POST',
+//                headers: {
+//                    'Content-Type': 'application/json'
+//                },
+//                body: JSON.stringify(data)
+//            });
+
+async function startNewConversation() {
+    if (!chatContainer.classList.contains('open')) {
+        chatContainer.classList.add('open');
+    }
+
+    messagesContainer.innerHTML = ''; // Clear previous messages
+
+    // Добавление приветственного сообщения из window.ChatWidgetConfig.branding.welcomeText
+    const welcomeMessageDiv = document.createElement('div');
+    welcomeMessageDiv.className = 'chat-message bot';
+    welcomeMessageDiv.innerHTML = window.ChatWidgetConfig.branding.welcomeText; // Используем welcomeText напрямую
+    messagesContainer.appendChild(welcomeMessageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // Если вам нужно отправить *пользовательский* запрос n8n сразу после приветствия,
+    // но не отображать его как первое сообщение бота, вы можете сделать это здесь:
+    // Например: sendMessage('START_CONVERSATION_TRIGGER');
+    // Или если n8n должен что-то сделать при старте, но не возвращать видимый ответ.
+}
 
             const responseData = await response.json();
 
             messagesContainer.removeChild(loadingMessage);
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.innerHTML = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+            botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
@@ -445,7 +465,7 @@
             messagesContainer.removeChild(loadingMessage)
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.innerHTML = Array.isArray(data) ? data[0].output : data.output;
+            botMessageDiv.textContent = Array.isArray(data) ? data[0].output : data.output;
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
