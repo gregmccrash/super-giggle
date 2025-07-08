@@ -227,7 +227,7 @@
             width: 60px;
             height: 60px;
             border-radius: 30px;
-            background-image: url('https://img.everyday-astrology.com/AdsOffer/magicball.gif');            
+            background-image: url('magicball.gif');            
             background-position: center;
             color: white;
             border: none;
