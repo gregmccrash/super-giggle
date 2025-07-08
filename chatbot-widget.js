@@ -372,22 +372,27 @@
         return crypto.randomUUID();
     }
 
-    async function startNewConversation() {
-        currentSessionId = generateUUID();
+async function startNewConversation() {
+    if (!chatContainer.classList.contains('open')) {
+        chatContainer.classList.add('open');
+    }
 
-        chatContainer.querySelector('.brand-header').style.display = 'none';
-        chatContainer.querySelector('.new-conversation').style.display = 'none';
-        chatInterface.classList.add('active');
-        messagesContainer.appendChild(loadingMessage);
+    messagesContainer.innerHTML = ''; // Clear previous messages
 
-        const data = [{
-            action: "loadPreviousSession",
-            sessionId: currentSessionId,
-            route: config.webhook.route,
-            metadata: {
-                userId: ""
-            }
-        }];
+    // --- НАЧАЛО НОВЫХ СТРОК ДЛЯ ПРИВЕТСТВЕННОГО СООБЩЕНИЯ ---
+    const welcomeMessageHtml = `
+        I’ve been expecting you. Whisper your question — or your fear — and I’ll read the echoes that ripple through fate. Need to speak again? I’m always near 👇
+        <br><br>
+        <a href="https://m.me/astrozens?ref=chatbubble" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
+            Step into the Messenger
+        </a>
+    `;
+
+    const welcomeMessageDiv = document.createElement('div');
+    welcomeMessageDiv.className = 'chat-message bot'; // Используем класс бота для стилизации
+    welcomeMessageDiv.innerHTML = welcomeMessageHtml;
+    messagesContainer.appendChild(welcomeMessageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
 //        try {
 //            const response = await fetch(config.webhook.url, {
@@ -397,41 +402,21 @@
 //                },
 //                body: JSON.stringify(data)
 //            });
-
-async function startNewConversation() {
-    if (!chatContainer.classList.contains('open')) {
-        chatContainer.classList.add('open');
-    }
-
-    messagesContainer.innerHTML = ''; // Clear previous messages
-
-    // Добавление приветственного сообщения из window.ChatWidgetConfig.branding.welcomeText
-    const welcomeMessageDiv = document.createElement('div');
-    welcomeMessageDiv.className = 'chat-message bot';
-    welcomeMessageDiv.innerHTML = window.ChatWidgetConfig.branding.welcomeText; // Используем welcomeText напрямую
-    messagesContainer.appendChild(welcomeMessageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-    // Если вам нужно отправить *пользовательский* запрос n8n сразу после приветствия,
-    // но не отображать его как первое сообщение бота, вы можете сделать это здесь:
-    // Например: sendMessage('START_CONVERSATION_TRIGGER');
-    // Или если n8n должен что-то сделать при старте, но не возвращать видимый ответ.
-}
-
-            const responseData = await response.json();
-
-            messagesContainer.removeChild(loadingMessage);
-            const botMessageDiv = document.createElement('div');
-            botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-            messagesContainer.appendChild(botMessageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        } catch (error) {
-            console.error('Error:', error);
-            messagesContainer.removeChild(loadingMessage);
-            messagesContainer.appendChild(errorMessage);
-        }
-    }
+//
+//            const responseData = await response.json();
+//
+//            messagesContainer.removeChild(loadingMessage);
+//            const botMessageDiv = document.createElement('div');
+//            botMessageDiv.className = 'chat-message bot';
+//            botMessageDiv.innerHTML = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+//            messagesContainer.appendChild(botMessageDiv);
+//            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+//        } catch (error) {
+//            console.error('Error:', error);
+//            messagesContainer.removeChild(loadingMessage);
+//            messagesContainer.appendChild(errorMessage);
+//        }
+//    }
 
     async function sendMessage(message) {
         const messageData = {
@@ -465,7 +450,7 @@ async function startNewConversation() {
             messagesContainer.removeChild(loadingMessage)
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = Array.isArray(data) ? data[0].output : data.output;
+            botMessageDiv.innerHTML = Array.isArray(data) ? data[0].output : data.output;
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
@@ -495,10 +480,9 @@ async function startNewConversation() {
             }
         }
     });
-
-    toggleButton.addEventListener('click', () => {
-        chatContainer.classList.toggle('open');
-    });
+{
+    toggleButton.addEventListener('click', startNewConversation);
+    };
 
     // Add close button handlers
     const closeButtons = chatContainer.querySelectorAll('.close-button');
@@ -507,4 +491,4 @@ async function startNewConversation() {
             chatContainer.classList.remove('open');
         });
     });
-})();
+}();
