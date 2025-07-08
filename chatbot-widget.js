@@ -227,7 +227,6 @@
             width: 60px;
             height: 60px;
             border-radius: 30px;
-            background-image: url('https://img.everyday-astrology.com/AdsOffer/magicball.gif');
             background-position: center;
             color: white;
             border: none;
@@ -263,6 +262,7 @@
     document.head.appendChild(fontLink);
 
     // Inject styles
+    background-image: url('https://raw.githubusercontent.com/gregmccrash/super-giggle/refs/heads/main/magicball.gif');    
     const styleSheet = document.createElement('style');
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
