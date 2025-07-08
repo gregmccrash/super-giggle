@@ -354,7 +354,8 @@
     const chatInterface = chatContainer.querySelector('.chat-interface');
     const messagesContainer = chatContainer.querySelector('.chat-messages');
     const textarea = chatContainer.querySelector('textarea');
-    const sendButton = chatContainer.querySelector('button[type="submit']');
+    // ИСПРАВЛЕННАЯ СТРОКА 357:
+    const sendButton = chatContainer.querySelector('button[type="submit"]');
 
     //loader message
     const loadingMessage = document.createElement('div');
