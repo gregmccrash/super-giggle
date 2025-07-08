@@ -274,7 +274,7 @@
         },
         branding: {
             name: '🔮 Ask the Seer',
-            welcomeText: 'I am here to answer… but not every question deserves an answer. What truth are you truly ready to hear?', // 
+            welcomeText: 'I am here to answer… but not every question deserves an answer. What truth are you truly ready to hear?',
             },
         style: {
             primaryColor: '#14141E',
@@ -378,8 +378,18 @@
         chatContainer.querySelector('.brand-header').style.display = 'none';
         chatContainer.querySelector('.new-conversation').style.display = 'none';
         chatInterface.classList.add('active');
-        messagesContainer.appendChild(loadingMessage);
+        messagesContainer.innerHTML = ''; // Очищаем предыдущие сообщения, если есть
 
+        // Отображаем сообщение "Hello World!" немедленно
+        const helloWorldMessageDiv = document.createElement('div');
+        helloWorldMessageDiv.className = 'chat-message bot';
+        helloWorldMessageDiv.textContent = 'Hello World!';
+        messagesContainer.appendChild(helloWorldMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // --- Закомментируем оригинальный вызов вебхука пока что ---
+        /*
+        messagesContainer.appendChild(loadingMessage);
         const data = [{
             action: "loadPreviousSession",
             sessionId: currentSessionId,
@@ -411,6 +421,7 @@
             messagesContainer.removeChild(loadingMessage);
             messagesContainer.appendChild(errorMessage);
         }
+        */
     }
 
     async function sendMessage(message) {
