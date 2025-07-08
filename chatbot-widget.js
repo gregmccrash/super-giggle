@@ -354,7 +354,7 @@
     const chatInterface = chatContainer.querySelector('.chat-interface');
     const messagesContainer = chatContainer.querySelector('.chat-messages');
     const textarea = chatContainer.querySelector('textarea');
-    const sendButton = chatContainer.querySelector('button[type="submit"]');
+    const sendButton = chatContainer.querySelector('button[type="submit']');
 
     //loader message
     const loadingMessage = document.createElement('div');
@@ -380,11 +380,15 @@
         chatInterface.classList.add('active');
         messagesContainer.innerHTML = ''; // Очищаем предыдущие сообщения, если есть
 
-        // Отображаем сообщение "Hello World!" немедленно
-        const helloWorldMessageDiv = document.createElement('div');
-        helloWorldMessageDiv.className = 'chat-message bot';
-        helloWorldMessageDiv.textContent = 'Hello World!';
-        messagesContainer.appendChild(helloWorldMessageDiv);
+        // Новое приветственное сообщение
+        const welcomeText = `I’ve been expecting you. Whisper your question — or your fear — and I’ll read the echoes that ripple through fate. Need to speak again? I’m always near 👇`;
+        const messengerButtonHTML = `<a href="https://m.me/astrozens?ref=chatbubble" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Step into the Messenger</a>`;
+
+        const welcomeMessageDiv = document.createElement('div');
+        welcomeMessageDiv.className = 'chat-message bot';
+        // Используем innerHTML, чтобы вставить HTML-код кнопки
+        welcomeMessageDiv.innerHTML = `${welcomeText}<br><br>${messengerButtonHTML}`;
+        messagesContainer.appendChild(welcomeMessageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
         // --- Закомментируем оригинальный вызов вебхука пока что ---
