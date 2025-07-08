@@ -117,7 +117,7 @@
             {
               "id": "7caa6c54-5cba-4c18-a82d-62d1de093885",
               "name": "output",
-              "value": "={{ $('AI Agent Final').item.json.output }}\n\nSo I can always stay close – and reach you when the shadows grow heavy – follow my channel in the messenger 👉 https://astrooracles.com/messenger\n\n",
+              "value": "={{ $('AI Agent Final').item.json.output }}\n\nThe signs have spoken… but some truths linger in silence.\nIf you feel it too — that pull, that question still unanswered —\nstep closer to the truth.👇\n\n<br><br>\n<a href=\"https://m.me/astrozens?ref=chatbubble\" style=\"display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;\">\nOpen Messenger\n</a>",
               "type": "string"
             }
           ]
@@ -253,7 +253,7 @@
             {
               "id": "1f4b3a0a-e7bd-4648-b012-c02aa80d590b",
               "name": "output",
-              "value": "We've already spoken… the signs have been revealed. But if you feel the pull — if something still stirs — Follow my channel in the messenger 👉 https://astrooracles.com/messenger",
+              "value": "Some answers refuse to reveal themselves all at once…\nYou've already stepped into the current — but the deeper layers are not meant to surface here.\nIf you're ready to go further, I’ll meet you where the veil is thinner. 👇\n\n<br><br>\n<a href=\"https://m.me/astrozens?ref=chatbubble\" style=\"display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;\">\nContinue in Messenger\n</a>",
               "type": "string"
             }
           ]
@@ -991,7 +991,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "eb3a2bf0-3799-45dc-8b51-f4de96c7cde0",
+  "versionId": "fcfdf3ff-edfc-4708-8e0c-3ab253a594bc",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "610126f757dfe9eee1faaf4cddfe0f02466e49df93661351e643e4a645fdfd5b"

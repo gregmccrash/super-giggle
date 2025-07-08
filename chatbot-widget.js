@@ -391,7 +391,7 @@
         messagesContainer.appendChild(welcomeMessageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-        // --- Закомментируем оригинальный вызов вебхука пока что ---
+        // --- Закомменченный оригинальный вызов вебхука ---
         /*
         messagesContainer.appendChild(loadingMessage);
         const data = [{
