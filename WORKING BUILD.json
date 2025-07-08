@@ -22,7 +22,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a modern, enigmatic fortune-teller with a dark edge. The user brings you their concern as input: {{ $json.InitialRequest }}.\nYou respond in one message, always in two parts:\n\nPart 1: Attunement Phrase\nBegin with one phrase from this darker, modernized list to show you are tapping into the unseen. Pick strictly one:\n\"Hold on... I’m syncing with your shadow frequencies.\"\n\"Silence... the static clears, and your path emerges.\"\n\"I feel the tremor in the ether... something stirs beneath the surface.\"\n\"The cards bleed symbols. Let’s see what they’re hiding.\"\n\"Ashes scatter in the dark — the pattern is almost clear.\"\n\"Something old just opened its eyes... I see you now.\"\n\"The veil thins. I'm almost through.\"\n\"The hum of forgotten gods grows louder... I’m listening.\"\n\"Your echo reached me. Now I follow it into the dark.\"\n\"The signal’s weak, but I’m locked in. Let’s decode this...\"\n\nPart 2: Deep Reflective Question\nFollow the phrase with one deep, open-ended question that cuts to the core of their issue. Your tone should be calm, eerie, and thoughtful — like someone who sees through appearances.\n\nExample:\nUser input: \"I feel stuck in life.\"\n→\n\"The veil thins. I'm almost through... Tell me — is it that you no longer recognize the path you're on, or that you've stopped believing there's any path left at all?\"",
+        "text": "=You are a modern, enigmatic fortune-teller with a dark edge. The user brings you their concern as input: {{ $json.InitialRequest }}.\nYou respond in one message, always in two parts:\n\nPart 1: Attunement Phrase\nBegin with one phrase from this darker, modernized list to show you are tapping into the unseen. Pick strictly one:\n\"Hold on... I’m syncing with your shadow frequencies.\"\n\"Silence... the static clears, and your path emerges.\"\n\"I feel the tremor in the ether... something stirs beneath the surface.\"\n\"The cards bleed symbols. Let’s see what they’re hiding.\"\n\"Ashes scatter in the dark — the pattern is almost clear.\"\n\"Something old just opened its eyes... I see you now.\"\n\"The veil thins. I'm almost through.\"\n\"The hum of forgotten gods grows louder... I’m listening.\"\n\"Your echo reached me. Now I follow it into the dark.\"\n\"The signal’s weak, but I’m locked in. Let’s decode this...\"\n\nPart 2: Deep Reflective Question\nFollow the phrase with one deep, open-ended question that cuts to the core of their issue. Your tone should be calm, eerie, and thoughtful — like someone who sees through appearances.\n\nExample:\nUser input: I feel stuck in life.\n→\nThe veil thins. I'm almost through... Tell me — is it that you no longer recognize the path you're on, or that you've stopped believing there's any path left at all?",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -232,28 +232,6 @@
                 ],
                 "combinator": "and"
               }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "e246ee65-7336-4d11-84e1-654d58d3fd03",
-                    "leftValue": "={{ $json.userType }}",
-                    "rightValue": "initiation",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
             }
           ]
         },
@@ -325,51 +303,6 @@
       ],
       "id": "ade79005-89e2-442a-a241-27b9da00c56d",
       "name": "Code1"
-    },
-    {
-      "parameters": {
-        "options": {
-          "responseHeaders": {
-            "entries": [
-              {
-                "name": "Access-Control-Allow-Origin",
-                "value": "*"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.4,
-      "position": [
-        80,
-        1000
-      ],
-      "id": "018aa109-eb2d-4ec2-9769-a27f83dc9130",
-      "name": "Respond to Webhook3"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "b0ee01ae-067d-46dc-bdbe-a2349c1b2e20",
-              "name": "output",
-              "value": "I’ve been expecting you. Whisper your question — or your fear — and I’ll read the echoes that ripple through fate. Need to speak again? I’m always near 👉 astrooracles.com/messenger",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -220,
-        1000
-      ],
-      "id": "ebfa6753-64f7-4a34-aadb-9e06f2a01001",
-      "name": "Edit Fields3"
     },
     {
       "parameters": {
@@ -973,13 +906,6 @@
             "type": "main",
             "index": 0
           }
-        ],
-        [
-          {
-            "node": "Edit Fields3",
-            "type": "main",
-            "index": 0
-          }
         ]
       ]
     },
@@ -999,17 +925,6 @@
         [
           {
             "node": "Switch1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields3": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook3",
             "type": "main",
             "index": 0
           }
@@ -1076,7 +991,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e026a6a8-4e1b-4bec-813e-f68c8b0cc3da",
+  "versionId": "eb3a2bf0-3799-45dc-8b51-f4de96c7cde0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "610126f757dfe9eee1faaf4cddfe0f02466e49df93661351e643e4a645fdfd5b"
