@@ -354,7 +354,6 @@
     const chatInterface = chatContainer.querySelector('.chat-interface');
     const messagesContainer = chatContainer.querySelector('.chat-messages');
     const textarea = chatContainer.querySelector('textarea');
-    // ИСПРАВЛЕННАЯ СТРОКА 357:
     const sendButton = chatContainer.querySelector('button[type="submit"]');
 
     //loader message
@@ -461,7 +460,8 @@
             messagesContainer.removeChild(loadingMessage)
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = Array.isArray(data) ? data[0].output : data.output;
+            // ИСПРАВЛЕННАЯ СТРОКА: ИСПОЛЬЗУЕМ innerHTML ВМЕСТО textContent
+            botMessageDiv.innerHTML = Array.isArray(data) ? data[0].output : data.output;
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
